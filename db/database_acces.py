@@ -3,23 +3,32 @@ import os
 
 oracledb.init_oracle_client()
 
-try:
-    connection: oracledb.connect = oracledb.connect(
-        user=os.getenv("userDb").upper(),
-        password=os.getenv("passDb"),
-        dsn="localhost:1521/xe"
-    )
+class DbAccess:
+    def __init__(self):
+        self.connect: oracledb = oracledb.connect
+        self.connect_databse()
 
-    print("succes")
+    @property
+    def print_any(self) -> list:
+        stoc_bilete: list[any] = list()
+        with self.connect.cursor() as cursor:
+            for row in cursor.execute("SELECT * from STOC_BILETE"):
+                stoc_bilete.append(row)
+        self.connection_close()
+        return stoc_bilete
 
-except Exception as e:
-    print(e)
+    def connect_databse(self) -> None:
+        try:
+            self.connect = oracledb.connect(
+                user= os.getenv("userDb").upper(),
+                password=os.getenv("passDb").upper(),
+                dsn="localhost:1521/xe",
+            )
 
-else:
+        except Exception as e:
+            raise e
+    def connection_close(self) -> None:
+        if self.connect:
+            return self.connect.close()
 
 
-    with connection.cursor() as cursor:
-        for row in cursor.execute("SELECT ID_STOC_BILETE from STOC_BILETE"):
-            print(row)
-    connection.close()
-    print("am inchis")

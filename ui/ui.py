@@ -1,12 +1,11 @@
 from tkinter import *
 from tkinter.ttk import Notebook, Frame
 from tkinter.messagebox import *
+from services.services import Services
 
-BILETE: dict = {
-    "premium": 20,
-    "mid": 20,
-    "sarac": 20,
-}
+
+servicii: Services = Services()
+
 
 
 
@@ -24,7 +23,7 @@ def selecteaza_bilet() -> None:
         cnp_tf.config(state="disabled")
         email_tf.config(state="disabled")
         label_selecteaza.grid(column=0, row=6)
-        inapoi_butt.grid(column=1, row=5, pady=20)
+        inapoi_butt.grid(column=0, row=5, pady=20)
         optiuni.grid(column=1, row=6)
 
 
@@ -33,10 +32,6 @@ def inapoi_func() -> None:
     prenume_tf.config(state="normal")
     cnp_tf.config(state="normal")
     email_tf.config(state="normal")
-    # nume_tf.insert(index=0, string="")
-    # prenume_tf.insert(index=0, string="")
-    # cnp_tf.insert(index=0, string="")
-    # email_tf.insert(index=0, string="")
     inapoi_butt.grid_forget()
     label_selecteaza.grid_forget()
     optiuni.grid_forget()
@@ -50,7 +45,9 @@ root.config(pady=20, padx=20)
 
 
 
-# canvas = Canvas(height=500, width=500)
+
+img: PhotoImage = PhotoImage(file="./ui_pic/buy_ticket.png")
+
 tabcontrol: Notebook = Notebook(root)
 
 tab1: Frame = Frame(tabcontrol)
@@ -65,10 +62,13 @@ tabcontrol.pack(expand=1, fill="both")
 
 
 # Tabul Cumpara ticket column 0
-Label(tab1, text="Nume").grid(column=0, row=0, pady=3, padx=3)
-Label(tab1, text="Prenume").grid(column=0, row=1, pady=3, padx=3)
-Label(tab1, text="CNP").grid(column=0, row=2, pady=3, padx=3)
-Label(tab1, text="Email").grid(column=0, row=3, pady=3, padx=3)
+canvas = Canvas(tab1, height=200, width=250)
+canvas.create_image(70, 70, image=img)
+canvas.grid(column=1, row=0, rowspan=1, columnspan=2)
+Label(tab1, text="Nume").grid(column=0, row=1, pady=3, padx=3)
+Label(tab1, text="Prenume").grid(column=0, row=2, pady=3, padx=3)
+Label(tab1, text="CNP").grid(column=0, row=3, pady=3, padx=3)
+Label(tab1, text="Email").grid(column=0, row=4, pady=3, padx=3)
 label_selecteaza: Label = Label(tab1, text="Selecteaza ticket")
 
 label_selecteaza.grid_forget()
@@ -76,21 +76,21 @@ label_selecteaza.grid_forget()
 # Tabul Cumpara ticket column 1
 
 nume_tf: Entry = Entry(tab1, width=20)
-nume_tf.grid(column=1, row=0, pady=3)
+nume_tf.grid(column=1, row=1, pady=3)
 prenume_tf: Entry = Entry(tab1, width=20)
-prenume_tf.grid(column=1, row=1, pady=3)
+prenume_tf.grid(column=1, row=2, pady=3)
 cnp_tf: Entry = Entry(tab1, width=20)
-cnp_tf.grid(column=1, row=2, pady=3)
+cnp_tf.grid(column=1, row=3, pady=3)
 email_tf: Entry = Entry(tab1, width=20)
-email_tf.grid(column=1, row=3, pady=3)
+email_tf.grid(column=1, row=4, pady=3)
 selecteaza_butt: Button = Button(tab1, text="Selecteaza bilet",background="green", width=20, command=selecteaza_bilet)
-selecteaza_butt.grid(column=1, row=4, pady=10)
+selecteaza_butt.grid(column=1, row=5, pady=10)
 
-inapoi_butt: Button = Button(tab1, text="Inapoi", background="blue", width=20, command=inapoi_func)
+inapoi_butt: Button = Button(tab1, text="<-- Inapoi", background="red", width=10, command=inapoi_func)
 inapoi_butt.grid_forget()
 value_inside: StringVar = StringVar(root)
 value_inside.set("Ticket")
-optiuni :OptionMenu = OptionMenu(tab1, value_inside, *BILETE.keys())
+optiuni :OptionMenu = OptionMenu(tab1, value_inside, *servicii.stoc_bilete.keys())
 optiuni.grid_forget()
 
 
