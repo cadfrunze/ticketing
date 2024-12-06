@@ -5,12 +5,12 @@ db_access: DbAccess = DbAccess()
 class Services:
     @property
     def stoc_bilete(self) ->dict:
-        lista_bilete = db_access.print_any
+        lista_bilete = db_access.interogare_stocBilete
         bilete: dict = {
-            elem[1]:{
+            str(elem[1]).capitalize():{
                 "pret": elem[2],
-                "locuri": elem[-1]
-            } for elem in lista_bilete
+
+            } for elem in lista_bilete if elem[-1]
         }
 
         return bilete
