@@ -5,7 +5,7 @@ from services.services import Services
 
 
 servicii: Services = Services()
-
+servicii_dict = servicii.stoc_bilete
 
 
 
@@ -28,6 +28,7 @@ def selecteaza_bilet() -> None:
 
 
 def inapoi_func() -> None:
+
     nume_tf.config(state="normal")
     prenume_tf.config(state="normal")
     cnp_tf.config(state="normal")
@@ -93,7 +94,8 @@ inapoi_butt.grid_forget()
 value_inside: StringVar = StringVar(root)
 value_inside.set("Selecteaza Ticket")
 value_inside.trace("w", afisare_bilet)
-optiuni :OptionMenu = OptionMenu(tab1, value_inside, *servicii.stoc_bilete.keys())
+optiuni :OptionMenu = OptionMenu(tab1, value_inside, *servicii_dict.keys())
+optiuni.configure(relief="raised")
 label_selectia: Label = Label(tab1, text="")
 
 

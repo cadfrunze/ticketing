@@ -7,10 +7,8 @@ oracledb.init_oracle_client()
 class DbAccess:
     def __init__(self):
         self.connect: oracledb = oracledb.connect
-        self.connect_databse()
         self.__useri_innregistrarti = dict()
 
-    @property
     def interogare_stocBilete(self) -> list:
         stoc_bilete: list[any] = list()
         with self.connect.cursor() as cursor:

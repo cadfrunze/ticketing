@@ -19,7 +19,7 @@ else:
 
 
     with connection.cursor() as cursor:
-        for row in cursor.execute("SELECT ID_STOC_BILETE from STOC_BILETE"):
+        for row in cursor.execute("SELECT * from STOC_BILETE"):
             print(row)
     connection.close()
     print("am inchis")
