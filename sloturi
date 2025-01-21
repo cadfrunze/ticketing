@@ -1,0 +1,4 @@
+self.tab1TfNume.textChanged.connect(self.change_text)
+self.tab1TfPrenume.textChanged.connect(self.change_text)
+self.tab1TfCnp.textChanged.connect(self.change_text)
+self.tab1TfEmail.textChanged.connect(self.change_text)

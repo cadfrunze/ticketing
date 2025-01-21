@@ -1,5 +1,5 @@
-
-from ui_test import Ui_MainWindow
+from Gui import Ui_MainWindow
+from testing import Ui_MainWindow
 import sys
 
 from PySide6.QtWidgets import (QApplication, QMainWindow, QSizePolicy, QWidget)

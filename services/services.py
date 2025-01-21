@@ -1,21 +1,18 @@
 from db.database_acces import DbAccess
-
+from model import User
 
 class Services:
     def __init__(self):
         self.__db_access: DbAccess = DbAccess()
 
-    @property
-    def stoc_bilete(self) ->dict:
-        lista_bilete = self.__db_access.interogare_stocBilete
-        bilete: dict = {
-            str(elem[1]).capitalize():{
-                "pret": elem[2],
 
-            } for elem in lista_bilete if elem[-1]
-        }
+    def list_cnp(self) -> list[any]:
+        return self.__db_access.extract_cnp()
 
-        return bilete
+    def add_user(self, user: User):
+        print(user.nume)
+
+
 
 
 

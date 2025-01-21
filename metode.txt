@@ -1,0 +1,4 @@
+    def change_text(self):
+        if len(self.tab1TfNume.text().strip()) < 3 or len(self.tab1TfPrenume.text().strip()) < 3 or len(self.tab1TfCnp.text().strip()) < 3 or len(self.tab1TfEmail.text().strip()) < 3:
+            self.tab1Panel.setVisible(False)
+        else: self.tab1Panel.setVisible(True)
