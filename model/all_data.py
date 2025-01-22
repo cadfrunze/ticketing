@@ -1,1 +1,0 @@
-lista_cnp: list[str] = list()

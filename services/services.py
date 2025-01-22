@@ -1,5 +1,5 @@
 from db.database_acces import DbAccess
-from model import User
+from model import new_user
 
 class Services:
     def __init__(self):

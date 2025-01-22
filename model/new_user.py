@@ -1,13 +1,16 @@
 from typing import override, overload
 
 
-class User:
-    def __init__(self, nume:str, prenume:str, cnp:str, email:str, telefon:str):
+class NewUser:
+    def __init__(self, nume:str, prenume:str, cnp:str, email:str, telefon:str, tip_ticket:str, serie_ticket:str, nr_extras:int):
         self.__nume = nume
         self.__prenume = prenume
         self.__cnp = cnp
         self.__email = email
         self.__telefon = telefon
+        self.__tip_ticket = tip_ticket
+        self.__serie_ticket = serie_ticket
+        self.__nr_extras = nr_extras
 
     @property
     def nume(self): return self.__nume
@@ -23,4 +26,13 @@ class User:
 
     @property
     def telefon(self): return self.__telefon
+
+    @property
+    def tip_ticket(self): return self.__tip_ticket
+
+    @property
+    def serie_ticket(self): return self.__serie_ticket
+
+    @property
+    def nr_extras(self): return self.__nr_extras
 

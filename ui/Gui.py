@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'GuiacBLBn.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.0
+## Created by: CADFRUNZE Interface Compiler version 6.5.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -344,6 +344,7 @@ class Ui_MainWindow(object):
 
 
         QMetaObject.connectSlotsByName(MainWindow)
+        # SLOTURI
     # setupUi
 
     def retranslateUi(self, MainWindow):
@@ -385,4 +386,7 @@ class Ui_MainWindow(object):
         self.tab3LbPremiu.setText(QCoreApplication.translate("MainWindow", u"Premiu Castigat:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), QCoreApplication.translate("MainWindow", u"Edit", None))
     # retranslateUi
+
+    # METODE
+
 
