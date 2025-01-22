@@ -2,6 +2,7 @@ from typing import override, overload
 
 
 class NewUser:
+    """Inserare new User"""
     def __init__(self, nume:str, prenume:str, cnp:str, email:str, telefon:str, tip_ticket:str, serie_ticket:str, nr_extras:int):
         self.__nume = nume
         self.__prenume = prenume

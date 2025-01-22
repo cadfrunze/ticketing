@@ -1,6 +1,7 @@
 
 
 class UserInfo:
+    """Interogare, detalii client"""
 
     def __init__(self):
         self.__nume:str = None
