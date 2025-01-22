@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Cadfrunze</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
@@ -161,12 +162,12 @@
         <string>Selecteaza Tip Ticket</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_12">
+      <widget class="QLabel" name="tab1LbPretBuc">
        <property name="geometry">
         <rect>
          <x>30</x>
          <y>130</y>
-         <width>111</width>
+         <width>131</width>
          <height>22</height>
         </rect>
        </property>
@@ -174,18 +175,113 @@
         <string>Pret/buc: </string>
        </property>
       </widget>
-      <widget class="QComboBox" name="tab1ComboBilete">
+      <widget class="QComboBox" name="tab1ListaBilete">
        <property name="geometry">
         <rect>
-         <x>140</x>
+         <x>130</x>
          <y>40</y>
-         <width>151</width>
+         <width>161</width>
          <height>22</height>
         </rect>
        </property>
       </widget>
+      <widget class="QComboBox" name="tab1ListaCantitate">
+       <property name="geometry">
+        <rect>
+         <x>340</x>
+         <y>130</y>
+         <width>51</width>
+         <height>22</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>140</y>
+         <width>99</width>
+         <height>12</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Selecteaza bucati bilete</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tab1LbCost">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>260</y>
+         <width>211</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Cost: </string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tab1ButBuy">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>363</y>
+         <width>211</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <property name="cursor">
+        <cursorShape>OpenHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Plateste:</string>
+       </property>
+      </widget>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>60</x>
@@ -460,11 +556,524 @@
      <attribute name="title">
       <string>Activate</string>
      </attribute>
+     <widget class="QLineEdit" name="tab2TfSerie1">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>3</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>148</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Introdu Serie Ticket</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="tab2TfSerie2">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>3</number>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="tab2TfSerie3">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>3</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>40</y>
+        <width>13</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>--</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>40</y>
+        <width>13</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>--</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>40</y>
+        <width>33</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CNP</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="tab2TfCnp">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>40</y>
+        <width>181</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="tab2Panel" native="true">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>130</y>
+        <width>751</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="tab2LbRezultat">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>40</y>
+         <width>181</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Bilet: </string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tab2ButActiveaza">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>140</y>
+         <width>211</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>OpenHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Activeaza si intra in tragere la sorti!</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab3">
      <attribute name="title">
       <string>Edit</string>
      </attribute>
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>148</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Introdu Serie Ticket</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="tab3TfSerie1">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>3</number>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="tab3TfSerie3">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>3</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>40</y>
+        <width>13</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>--</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>40</y>
+        <width>13</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>--</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>40</y>
+        <width>33</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CNP</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="tab3TfSerie2">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>3</number>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="tab3TfCnp">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>40</y>
+        <width>181</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="tab3Panel" native="true">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>110</y>
+        <width>751</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="tab3LbNume">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>181</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Nume: </string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tab3LbPrenume">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>30</y>
+         <width>281</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Prenume:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tab3LbCnp">
+       <property name="geometry">
+        <rect>
+         <x>550</x>
+         <y>30</y>
+         <width>191</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>CNP: </string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_24">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>80</y>
+         <width>41</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Email</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_25">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>80</y>
+         <width>56</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Telefon</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="tab3TfEmail">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>80</y>
+         <width>171</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="tab3TfTelefon">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>80</y>
+         <width>191</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tab3ButSave">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>170</y>
+         <width>151</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <property name="cursor">
+        <cursorShape>OpenHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Save!</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tab3ButDelete">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>250</y>
+         <width>151</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="Button">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <property name="cursor">
+        <cursorShape>OpenHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Delete!</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tab3LbPremiu">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>190</y>
+         <width>251</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Premiu Castigat:</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
