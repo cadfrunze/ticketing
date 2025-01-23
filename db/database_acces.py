@@ -1,6 +1,7 @@
 import oracledb
 import os
 
+from model.stoc_bilete import StocBilete
 
 oracledb.init_oracle_client()
 
@@ -41,11 +42,12 @@ class DbAccess:
 
 
 
-    def interogare_stocBilete(self) -> list:
-        stoc_bilete: list[any] = list()
+    def interogare_stocBilete(self) -> StocBilete:
+        stoc_bilete = StocBilete()
         with self.connect.cursor() as cursor:
             for row in cursor.execute("SELECT * from STOC_BILETE"):
-                stoc_bilete.append(row)
+                stoc_bilete.add_tickets(row)
+
         return stoc_bilete
 
 

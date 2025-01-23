@@ -3,24 +3,17 @@
 class StocBilete:
 
     def __init__(self):
-        self.__stoc_bilete:list[str] = list()
-        self.__cantitate:int = 0
-        self.__pret:int = 0
+        self.__stoc_bilete:list[any] = list()
+
 
     @property
     def stoc_bilete(self)->list[str]: return self.__stoc_bilete
 
-    @property
-    def cantitate(self)->int: return self.__cantitate
-
-    @property
-    def pret(self)->int: return self.__pret
-
     @stoc_bilete.setter
-    def stoc_bilete(self, item:str): self.__stoc_bilete.append(item)
+    def stoc_bilete(self, item:list[any]): self.__stoc_bilete = item
 
-    @cantitate.setter
-    def cantitate(self, cantitate:int): self.__cantitate=cantitate
+    def add_tickets(self, item):
+        for elem in item:
+            self.stoc_bilete = elem
 
-    @pret.setter
-    def pret(self, pret:int): self.__pret=pret
+
