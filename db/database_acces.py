@@ -18,7 +18,7 @@ class DbAccess:
                 password=os.getenv("passDb").upper(),
                 dsn="localhost:1521/xe",
             )
-            print("Conexiune reusita")
+            #print("Conexiune reusita")
 
         except oracledb.Error as e:
             raise e
