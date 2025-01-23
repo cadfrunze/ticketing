@@ -70,6 +70,7 @@ class Ui_MainWindow(object):
         self.tab1.setObjectName(u"tab1")
         self.tab1.setFont(font)
         self.tab1.setContextMenuPolicy(Qt.NoContextMenu)
+#------------------------------TAB1 PANEL------------------
         self.tab1Panel = QWidget(self.tab1)
         self.tab1Panel.setObjectName(u"tab1Panel")
         self.tab1Panel.setEnabled(True)
@@ -80,10 +81,17 @@ class Ui_MainWindow(object):
         self.tab1LbPretBuc = QLabel(self.tab1Panel)
         self.tab1LbPretBuc.setObjectName(u"tab1LbPretBuc")
         self.tab1LbPretBuc.setGeometry(QRect(30, 130, 131, 22))
+        self.tab1Panel.setVisible(False)
+
+#-----------------TAB1 LISTA BILETE---------------------------------------------
+
         self.tab1ListaBilete = QComboBox(self.tab1Panel)
         self.tab1ListaBilete.setObjectName(u"tab1ListaBilete")
         self.tab1ListaBilete.setGeometry(QRect(130, 40, 161, 22))
-        self.stocuri()
+
+
+
+#-----------------TAB1 CANTITATE---------------------------------------------
         self.tab1ListaCantitate = QComboBox(self.tab1Panel)
         self.tab1ListaCantitate.setObjectName(u"tab1ListaCantitate")
         self.tab1ListaCantitate.setGeometry(QRect(340, 130, 51, 22))
@@ -150,6 +158,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label_7, 0, 1, 1, 1)
 
+#---------------------------------TAB1 EMAIL------------------
         self.tab1TfEmail = QLineEdit(self.layoutWidget)
         self.tab1TfEmail.setObjectName(u"tab1TfEmail")
 
@@ -165,6 +174,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label_6, 4, 0, 1, 1)
 
+#------------- --------------------------TAB1 CNP------------------
         self.tab1TfCnp = QLineEdit(self.layoutWidget)
         self.tab1TfCnp.setObjectName(u"tab1TfCnp")
 
@@ -175,11 +185,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
 
+#------------------------------------TAB1 NUME------------------
         self.tab1TfNume = QLineEdit(self.layoutWidget)
         self.tab1TfNume.setObjectName(u"tab1TfNume")
 
         self.gridLayout.addWidget(self.tab1TfNume, 0, 3, 1, 1)
 
+#--------------------------TAB1 PRENUME------------------
         self.tab1TfPrenume = QLineEdit(self.layoutWidget)
         self.tab1TfPrenume.setObjectName(u"tab1TfPrenume")
 
@@ -196,6 +208,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label_8, 1, 1, 1, 1)
 
+#-------------------------------------TAB1 TELEFON------------------
         self.tab1TfTelefon = QLineEdit(self.layoutWidget)
         self.tab1TfTelefon.setObjectName(u"tab1TfTelefon")
 
@@ -403,8 +416,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), QCoreApplication.translate("MainWindow", u"Edit", None))
     # retranslateUi
 
-    def stocuri(self):
-        lista_bilete:list[any] = self.srv.stoc_bilete()
-        for elem in lista_bilete:
-            for elem1 in elem:
-                self.tab1ListaBilete.addItem(elem1[0])
+    def stocuri_lista_bilete(self):
+        stocuri:dict = self.srv.stoc_bilete()
+        for elem in stocuri.keys():
+            self.tab1ListaBilete.addItem(elem)
+
