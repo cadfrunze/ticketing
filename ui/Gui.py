@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'GuiacBLBn.ui'
+## Form generated from reading UI file 'GuiRoaBFx.ui'
 ##
-## Created by: CADFRUNZE Interface Compiler version 6.5.0
+## Created by: CadFrunze Interface Compiler version 6.5.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,7 +19,14 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QLabel, QLineEdit, QMainWindow, QPushButton,
     QSizePolicy, QTabWidget, QWidget)
 
+from services.services import Services
+
+
 class Ui_MainWindow(object):
+    def __init__(self, srv:Services=Services()):
+        self.srv=srv
+
+
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -76,6 +83,7 @@ class Ui_MainWindow(object):
         self.tab1ListaBilete = QComboBox(self.tab1Panel)
         self.tab1ListaBilete.setObjectName(u"tab1ListaBilete")
         self.tab1ListaBilete.setGeometry(QRect(130, 40, 161, 22))
+        self.stocuri()
         self.tab1ListaCantitate = QComboBox(self.tab1Panel)
         self.tab1ListaCantitate.setObjectName(u"tab1ListaCantitate")
         self.tab1ListaCantitate.setGeometry(QRect(340, 130, 51, 22))
@@ -204,6 +212,9 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label_10, 3, 1, 1, 1)
 
+        self.tab1LbCredential = QLabel(self.tab1)
+        self.tab1LbCredential.setObjectName(u"tab1LbCredential")
+        self.tab1LbCredential.setGeometry(QRect(20, 260, 321, 16))
         self.tabWidget.addTab(self.tab1, "")
         self.tab2 = QWidget()
         self.tab2.setObjectName(u"tab2")
@@ -255,6 +266,9 @@ class Ui_MainWindow(object):
         font2.setBold(True)
         self.tab2ButActiveaza.setFont(font2)
         self.tab2ButActiveaza.setCursor(QCursor(Qt.OpenHandCursor))
+        self.tab2LbAchizitionat = QLabel(self.tab2Panel)
+        self.tab2LbAchizitionat.setObjectName(u"tab2LbAchizitionat")
+        self.tab2LbAchizitionat.setGeometry(QRect(260, 250, 251, 31))
         self.tabWidget.addTab(self.tab2, "")
         self.tab3 = QWidget()
         self.tab3.setObjectName(u"tab3")
@@ -340,11 +354,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
-        # SLOTURI
+
     # setupUi
 
     def retranslateUi(self, MainWindow):
@@ -364,6 +378,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Nume", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"*", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"*", None))
+        self.tab1LbCredential.setText("")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab1), QCoreApplication.translate("MainWindow", u"Buy Ticket", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Introdu Serie Ticket", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"--", None))
@@ -371,6 +386,7 @@ class Ui_MainWindow(object):
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"CNP", None))
         self.tab2LbRezultat.setText(QCoreApplication.translate("MainWindow", u"Bilet: ", None))
         self.tab2ButActiveaza.setText(QCoreApplication.translate("MainWindow", u"Activeaza si intra in tragere la sorti!", None))
+        self.tab2LbAchizitionat.setText(QCoreApplication.translate("MainWindow", u"Bilet achizitionat:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab2), QCoreApplication.translate("MainWindow", u"Activate", None))
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Introdu Serie Ticket", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"--", None))
@@ -387,6 +403,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), QCoreApplication.translate("MainWindow", u"Edit", None))
     # retranslateUi
 
-    # METODE
-
-
+    def stocuri(self):
+        lista_bilete:list[any] = self.srv.stoc_bilete()
+        for elem in lista_bilete:
+            for elem1 in elem:
+                self.tab1ListaBilete.addItem(elem1[0])

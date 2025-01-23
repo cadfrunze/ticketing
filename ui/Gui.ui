@@ -101,7 +101,7 @@
      <enum>QTabWidget::North</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -551,6 +551,19 @@
        </item>
       </layout>
      </widget>
+     <widget class="QLabel" name="tab1LbCredential">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>260</y>
+        <width>321</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab2">
      <attribute name="title">
@@ -742,6 +755,19 @@
        </property>
        <property name="text">
         <string>Activeaza si intra in tragere la sorti!</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tab2LbAchizitionat">
+       <property name="geometry">
+        <rect>
+         <x>260</x>
+         <y>250</y>
+         <width>251</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Bilet achizitionat:</string>
        </property>
       </widget>
      </widget>

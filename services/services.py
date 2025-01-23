@@ -19,10 +19,6 @@ class Services:
 
 
 
-services: Services = Services()
-print(services.stoc_bilete())
-
-
 
 
 
