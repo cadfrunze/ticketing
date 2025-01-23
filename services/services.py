@@ -4,7 +4,6 @@ from model.stoc_bilete import StocBilete
 
 class Services:
     def __init__(self, db_acces: DbAccess=DbAccess()):
-        self.stoc_bilete1 = list()
         self.__db_access = db_acces
 
     def list_cnp(self) -> list[any]:
@@ -14,11 +13,14 @@ class Services:
         pass
 
     def stoc_bilete(self):
-        self.stoc_bilete1 = self.__db_access.interogare_stocBilete()
+        stoc:StocBilete = self.__db_access.interogare_stocBilete()
+        print(stoc.stoc_bilete)
+
+
 
 
 services: Services = Services()
-print(services.stoc_bilete())
+services.stoc_bilete()
 
 
 

@@ -4,17 +4,17 @@ class UserInfo:
     """Interogare, detalii client"""
 
     def __init__(self):
-        self.__nume:str = None
-        self.__prenume:str = None
-        self.__cnp:str = None
-        self.__email:str = None
-        self.__telefon:str = None
-        self.__serie_ticket:str = None
-        self.__tip_ticket:str = None
-        self.__premiu:str = None
-        self.__validare:str = None
-        self.__cantitate_cumparata:int = None
-        self.__id_client:int = None
+        self.__nume:str = ''
+        self.__prenume:str = ''
+        self.__cnp:str = ''
+        self.__email:str = ''
+        self.__telefon:str = ''
+        self.__serie_ticket:str = ''
+        self.__tip_ticket:str = ''
+        self.__premiu:str = ''
+        self.__validare:str = ''
+        self.__cantitate_cumparata:int = 0
+        self.__id_client:int = 0
 
     # GETTERS
     @property

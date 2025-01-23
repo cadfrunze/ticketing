@@ -44,10 +44,11 @@ class DbAccess:
 
     def interogare_stocBilete(self) -> StocBilete:
         stoc_bilete = StocBilete()
+        element:list[any] = list()
         with self.connect.cursor() as cursor:
             for row in cursor.execute("SELECT * from STOC_BILETE"):
-                stoc_bilete.add_tickets(row)
-
+                element.append(row[1:])
+        stoc_bilete.stoc_bilete = element
         return stoc_bilete
 
 
