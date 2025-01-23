@@ -12,15 +12,15 @@ class Services:
     def new_user(self, new_ser):
         pass
 
-    def stoc_bilete(self):
+    def stoc_bilete(self)->list[StocBilete.stoc_bilete]:
         stoc:StocBilete = self.__db_access.interogare_stocBilete()
-        print(stoc.stoc_bilete)
+        return stoc.stoc_bilete
 
 
 
 
 services: Services = Services()
-services.stoc_bilete()
+print(services.stoc_bilete())
 
 
 
