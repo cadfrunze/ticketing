@@ -81,7 +81,7 @@ class Ui_MainWindow(object):
         self.tab1LbPretBuc = QLabel(self.tab1Panel)
         self.tab1LbPretBuc.setObjectName(u"tab1LbPretBuc")
         self.tab1LbPretBuc.setGeometry(QRect(30, 130, 131, 22))
-        self.tab1Panel.setVisible(False)
+
 
 #-----------------TAB1 LISTA BILETE---------------------------------------------
 
@@ -190,6 +190,7 @@ class Ui_MainWindow(object):
         self.tab1TfNume.setObjectName(u"tab1TfNume")
 
         self.gridLayout.addWidget(self.tab1TfNume, 0, 3, 1, 1)
+
 
 #--------------------------TAB1 PRENUME------------------
         self.tab1TfPrenume = QLineEdit(self.layoutWidget)
@@ -372,6 +373,14 @@ class Ui_MainWindow(object):
 
         QMetaObject.connectSlotsByName(MainWindow)
 
+#----------------------SLOTURI-------------------------
+        self.tab1TfNume.textChanged.connect(self.change_text)
+        self.tab1TfPrenume.textChanged.connect(self.change_text)
+        self.tab1TfCnp.textChanged.connect(self.change_text)
+        self.tab1TfEmail.textChanged.connect(self.change_text)
+        self.tab1Panel.setVisible(False)
+
+
     # setupUi
 
     def retranslateUi(self, MainWindow):
@@ -416,8 +425,16 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), QCoreApplication.translate("MainWindow", u"Edit", None))
     # retranslateUi
 
-    def stocuri_lista_bilete(self):
-        stocuri:dict = self.srv.stoc_bilete()
-        for elem in stocuri.keys():
-            self.tab1ListaBilete.addItem(elem)
+    def change_text(self):
+        self.tab1ListaBilete.clear()
+        check_cnp:bool = self.srv.check_cnp(self.tab1TfCnp.text().strip())
+        if (check_cnp is False) and len(self.tab1TfNume.text().strip())>2 and len(self.tab1TfPrenume.text().strip())>2 and len(self.tab1TfCnp.text().strip())>2 and len(self.tab1TfEmail.text().strip())>2:
+            self.tab1Panel.setVisible(True)
+            stocuri: dict = self.srv.stoc_bilete()
+            for elem in stocuri.keys():
+                self.tab1ListaBilete.addItem(elem)
+        else:
+            self.tab1Panel.setVisible(False)
+
+
 

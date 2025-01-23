@@ -21,6 +21,12 @@ class Services:
 
         return stocuri_dict
 
+    def check_cnp(self, cnp:str)-> bool:
+        lista_cnp:list[str] = self.__db_access.extract_cnp()
+        if cnp in lista_cnp:
+            return True
+        return False
+
 
 
 

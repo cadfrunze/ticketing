@@ -30,12 +30,12 @@ class DbAccess:
     def __del__(self):
         self.connection_close()
 
-    def extract_cnp(self):
-        lista:list[any]
-        sqlquery = "SELECT * from STOC_BILETE"
+    def extract_cnp(self)->list[str]:
+        lista:list[str] = list()
+        sqlquery = "SELECT cnp from EVIDENTA_CLIENTI"
         try:
             with self.connect.cursor() as cursor:
-                lista = [row[2] for row in cursor.execute(sqlquery)]
+                lista = [row for row in cursor.execute(sqlquery)]
         except oracledb.Error as e:
             print(f"Eroare la extragere cnp eroarea: {e}")
         return lista
