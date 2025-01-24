@@ -1,6 +1,9 @@
+from typing import Any
+
 import oracledb
 import os
 
+from model.new_user import NewUser
 from model.stoc_bilete import StocBilete
 
 oracledb.init_oracle_client()
@@ -41,15 +44,25 @@ class DbAccess:
         return lista
 
 
-
     def interogare_stocBilete(self) -> StocBilete:
         stoc_bilete = StocBilete()
-        element:list[any] = list()
-        with self.connect.cursor() as cursor:
-            for row in cursor.execute("SELECT * from STOC_BILETE"):
-                element.append(row[1:])
-        stoc_bilete.stoc_bilete = element
+        sql_query:str = "SELECT * from STOC_BILETE WHERE CANTITATE >:minim "
+        element:list[Any] = list()
+        try:
+            with self.connect.cursor() as cursor:
+                cursor.execute(sql_query, {"minim": 0})
+                for row in cursor:
+                    element.append(row[1:])
+            stoc_bilete.stoc_bilete = element
+        except Exception as e:
+            raise e
         return stoc_bilete
+
+    @staticmethod
+    def insert_new_user(new_user:NewUser):
+        print(new_user.nume)
+        print(new_user.serie_ticket)
+        print(new_user.nr_extras)
 
 
 

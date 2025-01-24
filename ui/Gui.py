@@ -480,8 +480,18 @@ class Ui_MainWindow(object):
             self.calcul_bilete()
 
     def pay_new_client(self):
-        messagebox.showinfo(title="Platit!", message=f"Tranzactie reusita, pe numele {self.tab1TfNume.text().capitalize()} {self.tab1TfPrenume.text().capitalize()}")
         self.tab1Panel.setVisible(False)
+        self.srv.new_user(
+            nume=self.tab1TfNume.text().lower().strip(),
+            prenume=self.tab1TfPrenume.text().lower(),
+            cnp=self.tab1TfCnp.text().strip(),
+            email=self.tab1TfEmail.text().lower().strip(),
+            telefon=self.tab1TfTelefon.text().strip(),
+            tip_ticket=self.tab1ListaBilete.currentText().lower().strip(),
+            cantitate_bilete=int(self.tab1LbCantitate.text().strip())
+        )
+        messagebox.showinfo(title="Platit!",
+                            message=f"Tranzactie reusita, pe numele {self.tab1TfNume.text().capitalize()} {self.tab1TfPrenume.text().capitalize()}")
 
 
 
