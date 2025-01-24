@@ -8,7 +8,7 @@ import random
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-
+from tkinter import messagebox
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -17,8 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
-    QLabel, QLineEdit, QMainWindow, QPushButton,
-    QSizePolicy, QTabWidget, QWidget)
+                               QLabel, QLineEdit, QMainWindow, QPushButton,
+                               QSizePolicy, QTabWidget, QWidget, QMessageBox)
 
 from services.services import Services
 
@@ -385,6 +385,7 @@ class Ui_MainWindow(object):
         self.tab1TfEmail.textChanged.connect(self.change_text)
         self.tab1ListaBilete.currentTextChanged.connect(self.elements_tickets)
         self.tab1LbCantitate.textChanged.connect(self.calcul_bilete)
+        self.tab1ButBuy.clicked.connect(self.pay_new_client)
 
 
     # setupUi
@@ -433,10 +434,10 @@ class Ui_MainWindow(object):
 
 #--------METODE PT TAB1------------------------
     def change_text(self):
-        self.tab1ListaBilete.clear()
         check_cnp:bool = self.srv.check_cnp(self.tab1TfCnp.text().strip())
         if (check_cnp is False) and len(self.tab1TfNume.text().strip())>2 and len(self.tab1TfPrenume.text().strip())>2 and len(self.tab1TfCnp.text().strip())>2 and len(self.tab1TfEmail.text().strip())>2:
             self.tab1Panel.setVisible(True)
+            self.tab1ListaBilete.clear()
             self.stocuri: dict = self.srv.stoc_bilete()
             for elem in self.stocuri.keys():
                 self.tab1ListaBilete.addItem(elem)
@@ -477,6 +478,10 @@ class Ui_MainWindow(object):
         else:
             self.tab1LbCantitate.setText(str(self.stocuri[self.tab1ListaBilete.currentText()][1]))
             self.calcul_bilete()
+
+    def pay_new_client(self):
+        messagebox.showinfo(title="Platit!", message=f"Tranzactie reusita, pe numele {self.tab1TfNume.text().capitalize()} {self.tab1TfPrenume.text().capitalize()}")
+        self.tab1Panel.setVisible(False)
 
 
 
