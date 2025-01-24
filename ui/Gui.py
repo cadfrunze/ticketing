@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 
 ################################################################################
 ## Form generated from reading UI file 'GuiRoaBFx.ui'
@@ -24,7 +25,9 @@ from services.services import Services
 
 class Ui_MainWindow(object):
     def __init__(self, srv:Services=Services()):
+        self.stocuri:dict = dict()
         self.srv=srv
+        self.cantitate:list = list()
 
 
     def setupUi(self, MainWindow):
@@ -92,9 +95,9 @@ class Ui_MainWindow(object):
 
 
 #-----------------TAB1 CANTITATE---------------------------------------------
-        self.tab1ListaCantitate = QComboBox(self.tab1Panel)
-        self.tab1ListaCantitate.setObjectName(u"tab1ListaCantitate")
-        self.tab1ListaCantitate.setGeometry(QRect(340, 130, 51, 22))
+        self.tab1LbCantitate = QLineEdit(self.tab1Panel)
+        self.tab1LbCantitate.setObjectName(u"tab1LbCantitate")
+        self.tab1LbCantitate.setGeometry(QRect(340, 130, 51, 22))
         self.label_13 = QLabel(self.tab1Panel)
         self.label_13.setObjectName(u"label_13")
         self.label_13.setGeometry(QRect(230, 140, 99, 12))
@@ -374,11 +377,14 @@ class Ui_MainWindow(object):
         QMetaObject.connectSlotsByName(MainWindow)
 
 #----------------------SLOTURI-------------------------
+#----------------------PT TAB1------------------------
+        self.tab1Panel.setVisible(False)
         self.tab1TfNume.textChanged.connect(self.change_text)
         self.tab1TfPrenume.textChanged.connect(self.change_text)
         self.tab1TfCnp.textChanged.connect(self.change_text)
         self.tab1TfEmail.textChanged.connect(self.change_text)
-        self.tab1Panel.setVisible(False)
+        self.tab1ListaBilete.currentTextChanged.connect(self.elements_tickets)
+        self.tab1LbCantitate.textChanged.connect(self.calcul_bilete)
 
 
     # setupUi
@@ -388,7 +394,7 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("MainWindow", u"Powered by CadFrunze", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Selecteaza Tip Ticket", None))
         self.tab1LbPretBuc.setText(QCoreApplication.translate("MainWindow", u"Pret/buc: ", None))
-        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Selecteaza bucati bilete", None))
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Introdu nr. bilete", None))
         self.tab1LbCost.setText(QCoreApplication.translate("MainWindow", u"Cost: ", None))
         self.tab1ButBuy.setText(QCoreApplication.translate("MainWindow", u"Plateste:", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"*", None))
@@ -425,16 +431,55 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), QCoreApplication.translate("MainWindow", u"Edit", None))
     # retranslateUi
 
+#--------METODE PT TAB1------------------------
     def change_text(self):
         self.tab1ListaBilete.clear()
         check_cnp:bool = self.srv.check_cnp(self.tab1TfCnp.text().strip())
         if (check_cnp is False) and len(self.tab1TfNume.text().strip())>2 and len(self.tab1TfPrenume.text().strip())>2 and len(self.tab1TfCnp.text().strip())>2 and len(self.tab1TfEmail.text().strip())>2:
             self.tab1Panel.setVisible(True)
-            stocuri: dict = self.srv.stoc_bilete()
-            for elem in stocuri.keys():
+            self.stocuri: dict = self.srv.stoc_bilete()
+            for elem in self.stocuri.keys():
                 self.tab1ListaBilete.addItem(elem)
         else:
             self.tab1Panel.setVisible(False)
+
+
+    def calcul_bilete(self):
+        pret_bilet: int = self.stocuri[self.tab1ListaBilete.currentText()][0]
+        nr_locuri_total: int = self.stocuri[self.tab1ListaBilete.currentText()][1]
+        nr_locuri_selectat: str = self.tab1LbCantitate.text().strip()
+        if not nr_locuri_selectat.isdigit():
+            self.tab1LbCredential.setText("Introdu' doar cifre!")
+            self.tab1LbCost.setText("Cost: 0 RON")
+            self.tab1ButBuy.setEnabled(False)
+            self.tab1ButBuy.setText("")
+            return
+        elif len(self.tab1LbCantitate.text().strip()) == 0 or int(nr_locuri_selectat) == 0:
+            self.tab1LbCantitate.setText("1")
+            self.tab1LbCredential.setText("Alege cel putin 1 bilet")
+            return
+        elif int(nr_locuri_selectat) > nr_locuri_total:
+            self.tab1LbCantitate.setText(str(nr_locuri_total))
+            self.tab1LbCredential.setText(f"Maxim: {nr_locuri_total}")
+            return
+        else:
+            self.tab1LbCredential.setText("")
+            self.tab1LbPretBuc.setText(f"Pret: {pret_bilet} RON")
+            self.tab1LbCost.setText(f"Cost: {nr_locuri_selectat} X {pret_bilet} = {int(nr_locuri_selectat) * pret_bilet} RON")
+            self.tab1ButBuy.setEnabled(True)
+            self.tab1ButBuy.setText(f"Plateste: {int(nr_locuri_selectat) * pret_bilet}")
+
+    def elements_tickets(self):
+        lista_elem = [key for key in self.stocuri.keys()]
+        curren_text: str = self.tab1ListaBilete.currentText().lower().strip()
+        if not curren_text or curren_text not in lista_elem:
+            return
+        else:
+            self.tab1LbCantitate.setText(str(self.stocuri[self.tab1ListaBilete.currentText()][1]))
+            self.calcul_bilete()
+
+
+
 
 
 
