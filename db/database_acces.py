@@ -1,8 +1,6 @@
 from typing import Any
-
 import oracledb
 import os
-
 from model.new_user import NewUser
 from model.stoc_bilete import StocBilete
 
@@ -35,7 +33,7 @@ class DbAccess:
 
     def extract_cnp(self)->list[str]:
         lista:list[str] = list()
-        sqlquery = "SELECT cnp from EVIDENTA_CLIENTI"
+        sqlquery = "SELECT CNP from EVIDENTA_CLIENTI"
         try:
             with self.connect.cursor() as cursor:
                 lista = [row for row in cursor.execute(sqlquery)]
@@ -58,12 +56,29 @@ class DbAccess:
             raise e
         return stoc_bilete
 
-    @staticmethod
-    def insert_new_user(new_user:NewUser):
-        print(new_user.nume)
-        print(new_user.serie_ticket)
-        print(new_user.nr_extras)
 
+    def insert_new_user(self, new_user:NewUser):
+        try:
+            with self.connect.cursor() as cursor:
+                cursor.callproc(
+                    "NEW_CLIENT",
+                    [
+                        new_user.nume,
+                        new_user.prenume,
+                        new_user.cnp,
+                        new_user.email,
+                        new_user.telefon,
+                        new_user.nr_extras,
+                        new_user.tip_ticket,
+                        new_user.serie_ticket,
+                        new_user.validare,
+                        new_user.cantitate_bilete
+
+                    ]
+                )
+            self.connect.commit()
+        except oracledb.DatabaseError as e:
+            raise e
 
 
 

@@ -1,4 +1,3 @@
-import model.tools
 from db.database_acces import DbAccess
 from model.new_user import NewUser
 from model.stoc_bilete import StocBilete
@@ -34,7 +33,7 @@ class Services:
         return stocuri_dict
 
     def check_cnp(self, cnp:str)-> bool:
-        lista_cnp:list[str] = self.__db_access.extract_cnp()
+        lista_cnp:list[str] = [''.join(cnp) for cnp in self.__db_access.extract_cnp()]
         if cnp in lista_cnp:
             return True
         return False
