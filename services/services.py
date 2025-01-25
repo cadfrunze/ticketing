@@ -46,6 +46,17 @@ class Services:
         premii: dict = self.__db_access.extrage_premii()
         #print(self.__new_user.nr_extras)
         if len(premii.keys()) < 1:
+            bon_fiscal(
+                nume=self.__new_user.nume,
+                prenume=self.__new_user.prenume,
+                cnp=self.__new_user.cnp,
+                email=self.__new_user.email,
+                tip_ticket=self.__new_user.tip_ticket,
+                nr_bilete=self.__new_user.cantitate_bilete,
+                serie_ticket=self.__new_user.serie_ticket,
+                premiu="Lipsa in stocuri premii",
+                nr_extras=self.__new_user.nr_extras
+            )
             return "Nu mai sunt premii in stoc!"
         else:
             premiu_list: list = list((index ,element["nume_premiu"], element["valoare_numar"]) for (index, element) in premii.items() if
@@ -55,8 +66,31 @@ class Services:
             if premiu_list:
                 self.__db_access.update_premii(cnp=self.__new_user.cnp, nr_extras=self.__new_user.nr_extras)
                 self.__new_user.premiu = premiu_list[0][1].upper()
+                bon_fiscal(
+                    nume=self.__new_user.nume,
+                    prenume=self.__new_user.prenume,
+                    cnp=self.__new_user.cnp,
+                    email=self.__new_user.email,
+                    tip_ticket=self.__new_user.tip_ticket,
+                    nr_bilete=self.__new_user.cantitate_bilete,
+                    serie_ticket=self.__new_user.serie_ticket,
+                    premiu=self.__new_user.premiu,
+                    nr_extras=self.__new_user.nr_extras
+                )
                 return f"Felicitari ai castigat {premiu_list[0][1].upper()} nr extras {self.__new_user.nr_extras}"
-            else: return f"Ghinion nu ai castigat nimic nr extras {self.__new_user.nr_extras}"
+            else:
+                bon_fiscal(
+                    nume=self.__new_user.nume,
+                    prenume=self.__new_user.prenume,
+                    cnp=self.__new_user.cnp,
+                    email=self.__new_user.email,
+                    tip_ticket=self.__new_user.tip_ticket,
+                    nr_bilete=self.__new_user.cantitate_bilete,
+                    serie_ticket=self.__new_user.serie_ticket,
+                    premiu="Bilet Necastigator!",
+                    nr_extras=self.__new_user.nr_extras
+                )
+                return f"Ghinion nu ai castigat nimic nr extras {self.__new_user.nr_extras}"
 
 
 
