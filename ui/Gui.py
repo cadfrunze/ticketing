@@ -436,6 +436,7 @@ class Ui_MainWindow(object):
     def change_text(self):
         check_cnp:bool = self.srv.check_cnp(self.tab1TfCnp.text().strip())
         if (check_cnp is False) and len(self.tab1TfNume.text().strip())>2 and len(self.tab1TfPrenume.text().strip())>2 and len(self.tab1TfCnp.text().strip())>2 and len(self.tab1TfEmail.text().strip())>2:
+            self.tab1LbCredential.setVisible(False)
             self.tab1Panel.setVisible(True)
             self.tab1ListaBilete.clear()
             self.stocuri: dict = self.srv.stoc_bilete()
@@ -443,6 +444,13 @@ class Ui_MainWindow(object):
                 self.tab1ListaBilete.addItem(elem)
         else:
             self.tab1Panel.setVisible(False)
+            self.tab1LbCredential.setVisible(True)
+            if check_cnp is True:
+                self.tab1LbCredential.setText(f"{self.tab1TfCnp.text()} existent!")
+                return
+            else: self.tab1LbCredential.setText("Minim 3 caractere")
+
+
 
 
     def calcul_bilete(self):
@@ -450,6 +458,7 @@ class Ui_MainWindow(object):
         nr_locuri_total: int = self.stocuri[self.tab1ListaBilete.currentText()][1]
         nr_locuri_selectat: str = self.tab1LbCantitate.text().strip()
         if not nr_locuri_selectat.isdigit():
+            self.tab1LbCredential.setVisible(True)
             self.tab1LbCredential.setText("Introdu' doar cifre!")
             self.tab1LbCost.setText("Cost: 0 RON")
             self.tab1ButBuy.setEnabled(False)
@@ -457,13 +466,16 @@ class Ui_MainWindow(object):
             return
         elif len(self.tab1LbCantitate.text().strip()) == 0 or int(nr_locuri_selectat) == 0:
             self.tab1LbCantitate.setText("1")
+            self.tab1LbCredential.setVisible(True)
             self.tab1LbCredential.setText("Alege cel putin 1 bilet")
             return
         elif int(nr_locuri_selectat) > nr_locuri_total:
             self.tab1LbCantitate.setText(str(nr_locuri_total))
+            self.tab1LbCredential.setVisible(True)
             self.tab1LbCredential.setText(f"Maxim: {nr_locuri_total}")
             return
         else:
+            self.tab1LbCredential.setVisible(False)
             self.tab1LbCredential.setText("")
             self.tab1LbPretBuc.setText(f"Pret: {pret_bilet} RON")
             self.tab1LbCost.setText(f"Cost: {nr_locuri_selectat} X {pret_bilet} = {int(nr_locuri_selectat) * pret_bilet} RON")

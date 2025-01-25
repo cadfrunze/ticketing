@@ -53,8 +53,10 @@ class Services:
                                                                                                     # -> tuple[1] -> nume premiu
                                                                                                     # -> tuple[-1] -> valoarea = numarul extras de client
             if premiu_list:
-                return f"Felicitari ai castigat {premiu_list[0][1].upper()}"
-            else: return "Ghinion nu ai castigat nimic"
+                self.__db_access.update_premii(cnp=self.__new_user.cnp, nr_extras=self.__new_user.nr_extras)
+                self.__new_user.premiu = premiu_list[0][1].upper()
+                return f"Felicitari ai castigat {premiu_list[0][1].upper()} nr extras {self.__new_user.nr_extras}"
+            else: return f"Ghinion nu ai castigat nimic nr extras {self.__new_user.nr_extras}"
 
 
 

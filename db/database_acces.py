@@ -97,3 +97,18 @@ class DbAccess:
             raise e
         return premii
 
+    def update_premii(self, cnp: str, nr_extras:int):
+        try:
+            with self.connect.cursor() as cursor:
+                cursor.callproc(
+                    "UPDATE_PREMII",
+                    [
+                        cnp,
+                        nr_extras
+                    ]
+                )
+            self.connect.commit()
+        except oracledb.DatabaseError as e:
+            raise e
+
+

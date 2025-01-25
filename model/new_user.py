@@ -13,7 +13,8 @@ class NewUser:
         self.__serie_ticket = serie_ticket
         self.__cantitate_bilete = cantitate_bilete
         self.__nr_extras = nr_extras
-        self.__validare: str = "0"
+        self.__validare: int = 0
+        self.__premiu:str = "Bilet fara premiu"
 
     @property
     def nume(self): return self.__nume
@@ -41,6 +42,13 @@ class NewUser:
 
     @property
     def cantitate_bilete(self): return self.__cantitate_bilete
+
     @property
     def validare(self): return self.__validare
+
+    @property
+    def premiu(self): return self.__premiu
+
+    @premiu.setter
+    def premiu(self, premiu: str): self.__premiu = premiu
 
