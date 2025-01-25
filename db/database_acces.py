@@ -1,3 +1,4 @@
+from logging import getLevelName
 from typing import Any
 import oracledb
 import os
@@ -80,6 +81,19 @@ class DbAccess:
         except oracledb.DatabaseError as e:
             raise e
 
-
-
+    def extrage_premii(self)-> dict:
+        sql_query: str = "SELECT * from STOC_PREMII WHERE CANTITATE >: minim"
+        try:
+            with self.connect.cursor() as cursor:
+                cursor.execute(sql_query, {"minim": 0})
+                premii = {element[0]: {
+                    "nume_premiu": element[1],
+                    "cantitate_premiu": element[2],
+                    "valoare_numar": element[-1]
+                    }
+                    for element in cursor.fetchall()
+                }
+        except Exception as e:
+            raise e
+        return premii
 

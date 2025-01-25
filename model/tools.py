@@ -23,4 +23,7 @@ def generare_ticket()->str:
     return serie_ticket
 
 def extragere_numar()->int:
-    return random.randint(1, 10)
+    return random.randint(1, 21)
+    # return 10
+    # return 20
+    # return 1

@@ -493,6 +493,11 @@ class Ui_MainWindow(object):
         messagebox.showinfo(title="Platit!",
                             message=f"Tranzactie reusita, pe numele {self.tab1TfNume.text().capitalize()} {self.tab1TfPrenume.text().capitalize()}")
 
+        rezultat_concurs:str = self.srv.participare_concurs()
+
+        messagebox.showinfo(title="Ai participat la tragere la sorti",
+                            message=rezultat_concurs)
+
 
 
 
