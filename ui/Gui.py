@@ -29,6 +29,7 @@ from model.user_info import UserInfo
 
 class Ui_MainWindow(object):
     def __init__(self, srv:Services=Services()):
+        self.user_info = None
         self.stocuri:dict = dict()
         self.srv=srv
         self.cantitate:list = list()
@@ -399,6 +400,16 @@ class Ui_MainWindow(object):
         self.tab2TfSerie3.textChanged.connect(self.change_text_tab2)
         self.tab2TfCnp.textChanged.connect(self.change_text_tab2)
         self.tab2ButActiveaza.clicked.connect(self.activate_ticket)
+#------------------------TAB3----------------------------------------------------------
+        self.tab3Panel.setVisible(False)
+        self.tab3TfSerie1.textChanged.connect(self.change_text_tab3)
+        self.tab3TfSerie2.textChanged.connect(self.change_text_tab3)
+        self.tab3TfSerie3.textChanged.connect(self.change_text_tab3)
+        self.tab3TfCnp.textChanged.connect(self.change_text_tab3)
+        self.tab3ButSave.clicked.connect(self.update_client_activate)
+        self.tab3ButDelete.clicked.connect(self.delete_client_activate)
+
+
 
     # setupUi
 
@@ -458,7 +469,7 @@ class Ui_MainWindow(object):
             self.tab1Panel.setVisible(False)
             self.tab1LbCredential.setVisible(True)
             if check_cnp is True:
-                self.tab1LbCredential.setText(f"{self.tab1TfCnp.text()} existent!")
+                self.tab1LbCredential.setText(f"{self.tab1TfCnp.text()} existent in baza de date")
                 return
             else: self.tab1LbCredential.setText("Minim 3 caractere")
 
@@ -528,25 +539,60 @@ class Ui_MainWindow(object):
         serie_ticket_brut: str = self.tab2TfSerie1.text().upper().strip()+self.tab2TfSerie2.text().upper().strip()+self.tab2TfSerie3.text().upper().strip()
         serie_ticket: str = prelucrare_serie_ticket(serie_ticket_brut)
         self.user_info = self.srv.user_info(cnp, serie_ticket)
-        if self.user_info.cnp == cnp and self.user_info.serie_ticket == serie_ticket:
-            self.tab2LbAchizitionat.setText(f"Serie tiket: {self.user_info.serie_ticket}")
-            self.tab2Panel.setVisible(True)
-            if self.user_info.validare == 0:
-                self.tab2LbRezultat.setText("Status Ticket: Nevalidat!")
-                self.tab2ButActiveaza.setVisible(True)
-            else:
-                self.tab2LbRezultat.setText("Status Ticket: Validat!")
-                self.tab2ButActiveaza.setVisible(False)
+        try:
+            self.user_info.cnp
+            self.user_info.serie_ticket
+        except AttributeError: self.tab2Panel.setVisible(False)
         else:
-            self.tab2Panel.setVisible(False)
+            if self.user_info.cnp == cnp and self.user_info.serie_ticket == serie_ticket:
+                self.tab2LbAchizitionat.setText(f"Serie tiket: {self.user_info.serie_ticket}")
+                self.tab2Panel.setVisible(True)
+                if self.user_info.validare == 0:
+                    self.tab2LbRezultat.setText("Status Ticket: Nevalidat!")
+                    self.tab2ButActiveaza.setVisible(True)
+                else:
+                    self.tab2LbRezultat.setText("Status Ticket: Validat!")
+                    self.tab2ButActiveaza.setVisible(False)
+            else:
+                self.tab2Panel.setVisible(False)
 
     def activate_ticket(self):
 
         self.srv.client_activate_ticket(index=self.user_info.id_client, serie_ticket=self.user_info.serie_ticket)
         messagebox.showinfo("validat!", "Validat cu succes!")
         self.change_text_tab2()
+#----------------------------METODE TAB3-------------------------------------------------------------------
+
+    def change_text_tab3(self):
+        cnp: str = self.tab3TfCnp.text().strip()
+        serie_ticket_brut: str = self.tab3TfSerie1.text().upper().strip() + self.tab3TfSerie2.text().upper().strip() + self.tab3TfSerie3.text().upper().strip()
+        serie_ticket: str = prelucrare_serie_ticket(serie_ticket_brut)
+        self.user_info = self.srv.user_info(cnp, serie_ticket)
+        try:
+            self.user_info.cnp
+            self.user_info.serie_ticket
+        except AttributeError: self.tab3Panel.setVisible(False)
+        else:
+            if self.user_info.cnp == cnp and self.user_info.serie_ticket == serie_ticket:
+                self.tab3Panel.setVisible(True)
+                self.tab3LbNume.setText(f"Nume: {self.user_info.nume.upper()}")
+                self.tab3LbPrenume.setText(f"Prenume: {self.user_info.prenume.upper()}")
+                self.tab3LbCnp.setText(f"CNP: {self.user_info.cnp}")
+                self.tab3LbPremiu.setText(f"Premiu: {self.user_info.premiu.upper()}")
+                self.tab3TfEmail.setText(f"{self.user_info.email}")
+                self.tab3TfTelefon.setText(f"{self.user_info.telefon}")
+            else:
+                self.tab3Panel.setVisible(False)
+
+    def update_client_activate(self):
+        self.srv.update_client_service(self.user_info.id_client ,self.tab3TfEmail.text().strip(), self.tab3TfTelefon.text().strip())
+        self.change_text_tab3()
+        messagebox.showinfo("Date actualizate", "Date actualizate cu succes!")
+
+    def delete_client_activate(self):
+        self.srv.delete_client_service(self.user_info.id_client)
+        self.change_text_tab3()
+        messagebox.showerror("DELETE", "Datele au fost sterse cu succes!")
 
 
-
-
-
+#----------------------------END--------------------------------------------------------------

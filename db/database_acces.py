@@ -58,7 +58,7 @@ class DbAccess:
         return stoc_bilete
 
 
-    def insert_new_user(self, new_user:NewUser):
+    def insert_new_user(self, new_user:NewUser)->None:
         try:
             with self.connect.cursor() as cursor:
                 cursor.callproc(
@@ -97,7 +97,7 @@ class DbAccess:
             raise e
         return premii
 
-    def update_premii(self, cnp: str, nr_extras:int):
+    def update_premii(self, cnp: str, nr_extras:int)->None:
         try:
             with self.connect.cursor() as cursor:
                 cursor.callproc(
@@ -112,7 +112,7 @@ class DbAccess:
             raise e
 #----------------TABUL 2 Activate-----------------------------
 
-    def extract_user_info(self, cnp: str, serie_ticket: str)-> Type[UserInfo]:
+    def extract_user_info(self, cnp: str, serie_ticket: str)-> Type[UserInfo] | None:
         nume_prov:str = str()
         prenume_prov:str = str()
         cnp_prov:str = str()
@@ -135,7 +135,7 @@ class DbAccess:
                 tuple_elemente_clienti: tuple[Any] = cursor.fetchone()
                 try:
                     tuple_elemente_clienti[3]
-                except TypeError : return UserInfo
+                except TypeError : return None
                 else:
                     id_client_prov = tuple_elemente_clienti[0]
                     nume_prov = tuple_elemente_clienti[1]
@@ -153,7 +153,7 @@ class DbAccess:
                     tuple_elemente_bilete: tuple[Any] = cursor.fetchone()
                     try:
                         tuple_elemente_bilete[0]
-                    except TypeError: return UserInfo
+                    except TypeError: return None
                     else:
                         serie_ticket_prov = tuple_elemente_bilete[0]
                         validare_prov = tuple_elemente_bilete[1]
@@ -177,7 +177,7 @@ class DbAccess:
 
                 except oracledb.DatabaseError as e: raise e
 
-        else: return UserInfo
+        else: return None
 
         UserInfo.nume = nume_prov
         UserInfo.prenume = prenume_prov
@@ -205,6 +205,32 @@ class DbAccess:
             except oracledb.DatabaseError as e: raise e
 
 
+#-----------------------------TAB3-------------------------------------------------------------
+    def update_evidenta_clienti(self,index_key:int, email:str, telefon: str)-> None:
+        with self.connect.cursor() as cursor:
+            try:
+                cursor.callproc(
+                    "UPDATE_EVIDENTA_CLIENTI",
+                [
+                    index_key,
+                    email,
+                    telefon
+                ]
+                )
+                self.connect.commit()
+            except oracledb.DatabaseError as e: raise e
+
+    def delete_client_database(self, index_key: int)->None:
+        with self.connect.cursor() as cursor:
+            try:
+                cursor.callproc(
+                    "DELETE_CLIENT",
+                    [
+                        index_key
+                    ]
+                )
+                self.connect.commit()
+            except oracledb.DatabaseError as e: raise e
 
 
 

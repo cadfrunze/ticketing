@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Type, Any
 
 from db.database_acces import DbAccess
 from model.new_user import NewUser
@@ -13,7 +13,7 @@ class Services:
         self.__new_user: NewUser
         self.__user_info: UserInfo
 
-    def list_cnp(self) -> list[any]:
+    def list_cnp(self) -> list[str]:
         return self.__db_access.extract_cnp()
 
 
@@ -105,7 +105,12 @@ class Services:
         self.__db_access.update_bilete_activate(index, serie_ticket)
 
 
+#---------------PT TAB 3----------------------------------------------------
+    def update_client_service(self,index_key: int, email:str, telefon: str)-> None:
+        self.__db_access.update_evidenta_clienti(index_key, email, telefon)
 
+    def delete_client_service(self, index_key: int)->None:
+        self.__db_access.delete_client_database(index_key)
 
 
 
