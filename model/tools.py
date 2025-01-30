@@ -30,14 +30,13 @@ def generare_ticket()->str:
     return serie_ticket
 
 def extragere_numar()->int:
-    return random.randint(1, 21)
+    return random.randint(1, 20)
     # return 10
     # return 20
     # return 1
 
 
-def bon_fiscal(
-        nume:str,
+def bon_fiscal(nume:str,
         prenume:str,
         cnp:str,
         email:str,
@@ -46,6 +45,7 @@ def bon_fiscal(
         serie_ticket:str,
         premiu: str,
         nr_extras: str
+
 )->None:
 
 
@@ -94,3 +94,14 @@ def bon_fiscal(
     pdf_canvas.save()
     time.sleep(1)
     os.startfile(f"{nume.lower()}-{prenume.lower()}.pdf")
+
+
+
+def prelucrare_serie_ticket(serie_ticket_brut:str) -> str:
+    new_serie: str = ''
+    for i in range(len(serie_ticket_brut)):
+        if i == 3 or i == 6:
+            new_serie += '-'
+
+        new_serie += serie_ticket_brut[i]
+    return new_serie

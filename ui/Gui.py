@@ -9,6 +9,8 @@ import random
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 from tkinter import messagebox
+from typing import Type
+
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -21,6 +23,8 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
                                QSizePolicy, QTabWidget, QWidget, QMessageBox)
 
 from services.services import Services
+from model.tools import prelucrare_serie_ticket
+from model.user_info import UserInfo
 
 
 class Ui_MainWindow(object):
@@ -28,6 +32,7 @@ class Ui_MainWindow(object):
         self.stocuri:dict = dict()
         self.srv=srv
         self.cantitate:list = list()
+        self.user_info:Type[UserInfo]
 
 
     def setupUi(self, MainWindow):
@@ -376,8 +381,8 @@ class Ui_MainWindow(object):
 
         QMetaObject.connectSlotsByName(MainWindow)
 
-#----------------------SLOTURI-------------------------
-#----------------------PT TAB1------------------------
+#----------------------SLOTURI-----------------------------------------
+#----------------------PT TAB1-----------------------------------------
         self.tab1Panel.setVisible(False)
         self.tab1TfNume.textChanged.connect(self.change_text)
         self.tab1TfPrenume.textChanged.connect(self.change_text)
@@ -386,7 +391,14 @@ class Ui_MainWindow(object):
         self.tab1ListaBilete.currentTextChanged.connect(self.elements_tickets)
         self.tab1LbCantitate.textChanged.connect(self.calcul_bilete)
         self.tab1ButBuy.clicked.connect(self.pay_new_client)
-
+#--------------------------PT TAB2 (ACTIVATE)-SLOTURI-----------------------------------
+        self.tab2Panel.setVisible(False)
+        self.tab2ButActiveaza.setText("Valideaza Ticketul!")
+        self.tab2TfSerie1.textChanged.connect(self.change_text_tab2)
+        self.tab2TfSerie2.textChanged.connect(self.change_text_tab2)
+        self.tab2TfSerie3.textChanged.connect(self.change_text_tab2)
+        self.tab2TfCnp.textChanged.connect(self.change_text_tab2)
+        self.tab2ButActiveaza.clicked.connect(self.activate_ticket)
 
     # setupUi
 
@@ -510,6 +522,29 @@ class Ui_MainWindow(object):
         messagebox.showinfo(title="Ai participat la tragere la sorti",
                             message=rezultat_concurs)
 
+#-------------------------METODE TAB2-----------------------------------------------------
+    def change_text_tab2(self):
+        cnp:str = self.tab2TfCnp.text().strip()
+        serie_ticket_brut: str = self.tab2TfSerie1.text().upper().strip()+self.tab2TfSerie2.text().upper().strip()+self.tab2TfSerie3.text().upper().strip()
+        serie_ticket: str = prelucrare_serie_ticket(serie_ticket_brut)
+        self.user_info = self.srv.user_info(cnp, serie_ticket)
+        if self.user_info.cnp == cnp and self.user_info.serie_ticket == serie_ticket:
+            self.tab2LbAchizitionat.setText(f"Serie tiket: {self.user_info.serie_ticket}")
+            self.tab2Panel.setVisible(True)
+            if self.user_info.validare == 0:
+                self.tab2LbRezultat.setText("Status Ticket: Nevalidat!")
+                self.tab2ButActiveaza.setVisible(True)
+            else:
+                self.tab2LbRezultat.setText("Status Ticket: Validat!")
+                self.tab2ButActiveaza.setVisible(False)
+        else:
+            self.tab2Panel.setVisible(False)
+
+    def activate_ticket(self):
+
+        self.srv.client_activate_ticket(index=self.user_info.id_client, serie_ticket=self.user_info.serie_ticket)
+        messagebox.showinfo("validat!", "Validat cu succes!")
+        self.change_text_tab2()
 
 
 

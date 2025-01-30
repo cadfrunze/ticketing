@@ -1,12 +1,17 @@
+from typing import Type
+
 from db.database_acces import DbAccess
 from model.new_user import NewUser
 from model.stoc_bilete import StocBilete
 from model.tools import *
+from model.user_info import UserInfo
+
 
 class Services:
     def __init__(self, db_acces: DbAccess=DbAccess()):
         self.__db_access = db_acces
         self.__new_user: NewUser
+        self.__user_info: UserInfo
 
     def list_cnp(self) -> list[any]:
         return self.__db_access.extract_cnp()
@@ -91,7 +96,13 @@ class Services:
                     nr_extras=self.__new_user.nr_extras
                 )
                 return f"Ghinion nu ai castigat nimic nr extras {self.__new_user.nr_extras}"
+#----------------PT TAB 2 ACTIVATE----------------------
+    def user_info(self, cnp:str, serie_ticket: str) -> Type[UserInfo]:
+        # new_serie_ticket: str = prelucrare_serie_ticket(serie_ticket)
+        return self.__db_access.extract_user_info(cnp,serie_ticket)
 
+    def client_activate_ticket(self, index: int, serie_ticket: str)->None:
+        self.__db_access.update_bilete_activate(index, serie_ticket)
 
 
 

@@ -4,41 +4,50 @@ class UserInfo:
     """Interogare, detalii client"""
 
     def __init__(self):
+        self.__validare = None
+        self.__cantitate_cumparata = None
+        self.__id_client = None
         self.__nume:str = ''
         self.__prenume:str = ''
         self.__cnp:str = ''
         self.__email:str = ''
         self.__telefon:str = ''
         self.__serie_ticket:str = ''
-        self.__tip_ticket:str = ''
         self.__premiu:str = ''
-        self.__validare:str = ''
-        self.__cantitate_cumparata:int = 0
-        self.__id_client:int = 0
+        self.__validare:int
+        self.__cantitate_cumparata:int
+        self.__id_client:int
 
     # GETTERS
     @property
-    def nume(self): return self.__nume
+    def nume(self)->str: return self.__nume
+
     @property
-    def prenume(self): return self.__prenume
+    def prenume(self)->str: return self.__prenume
+
     @property
-    def cnp(self): return self.__cnp
+    def cnp(self)->str: return self.__cnp
+
     @property
-    def email(self): return self.__email
+    def email(self)->str: return self.__email
+
     @property
-    def telefon(self): return self.__telefon
+    def telefon(self)->str: return self.__telefon
+
     @property
-    def serie_ticket(self): return self.__serie_ticket
+    def serie_ticket(self)->str: return self.__serie_ticket
+
     @property
-    def tip_ticket(self): return self.__tip_ticket
+    def premiu(self)->str: return self.__premiu
+
     @property
-    def premiu(self): return self.__premiu
+    def validare(self)->int: return self.__validare
+
     @property
-    def validare(self): return self.__validare
+    def cantitate_cumparata(self)->int: return self.__cantitate_cumparata
+
     @property
-    def cantitate_cumparata(self): return self.__cantitate_cumparata
-    @property
-    def id_client(self): return self.__id_client
+    def id_client(self)->int: return self.__id_client
 
     #SETTERS
     @nume.setter
@@ -59,14 +68,11 @@ class UserInfo:
     @serie_ticket.setter
     def serie_ticket(self, serie_ticket:str): self.__serie_ticket=serie_ticket
 
-    @tip_ticket.setter
-    def tip_ticket(self, tip_ticket:str): self.__tip_ticket=tip_ticket
-
     @premiu.setter
     def premiu(self, premiu:str): self.__premiu=premiu
 
     @validare.setter
-    def validare(self, validare:str): self.__validare=validare
+    def validare(self, validare:int): self.__validare=validare
 
     @cantitate_cumparata.setter
     def cantitate_cumparata(self, cantitate_cumparata:int): self.__cantitate_cumparata=cantitate_cumparata
