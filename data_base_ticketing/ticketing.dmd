@@ -1,8 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="ticketing" id="7387E1BE-8F3B-E83F-41E6-CD301AA31F71" version="3.5">
-<createdBy>cadfrunze</createdBy>
-<createdTime>2025-02-01 06:23:31 UTC</createdTime>
-<ownerDesignName>ticketing</ownerDesignName>
-<capitalNames>false</capitalNames>
-<designId>7387E1BE-8F3B-E83F-41E6-CD301AA31F71</designId>
-</OSDM_Design>

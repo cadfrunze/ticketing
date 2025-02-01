@@ -1,7 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="D1C6A3B1-B8D9-709F-B9FC-804C23A20177" mainViewID="A3688961-E1DD-60DA-4C9C-C4AF4753387A">
-<createdBy>cadfrunze</createdBy>
-<createdTime>2025-02-01 06:23:31 UTC</createdTime>
-<ownerDesignName>ticketing</ownerDesignName>
-<shouldBeOpen>false</shouldBeOpen>
-</LogicalDesign>
