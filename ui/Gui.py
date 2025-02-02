@@ -469,7 +469,7 @@ class Ui_MainWindow(object):
             self.tab1Panel.setVisible(False)
             self.tab1LbCredential.setVisible(True)
             if check_cnp is True:
-                self.tab1LbCredential.setText(f"{self.tab1TfCnp.text()} existent in baza de date")
+                self.tab1LbCredential.setText(f" Acest CNP {self.tab1TfCnp.text()} exista in baza de date")
                 return
             else: self.tab1LbCredential.setText("Minim 3 caractere")
 
